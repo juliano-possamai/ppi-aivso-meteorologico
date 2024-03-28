@@ -1,0 +1,27 @@
+@baseUrl = http://localhost:3000
+### Pesquisa todos os avisos
+GET {{baseUrl}}/api/warnings
+
+### Cria um aviso
+POST {{baseUrl}}/api/warnings
+Content-Type: application/json
+
+{
+	"name": "Aviso de 10 dias",
+	"maxDaysInAdvance": 10,
+	"minimunProbability": 50
+}
+
+### Obtém um aviso
+GET {{baseUrl}}/api/warnings/65fcbf82ed7284a7ca5fe17b
+
+### Altera um aviso por id
+PUT {{baseUrl}}/api/warnings/654c18e165a5d73d669f7fce
+Content-Type: application/json
+
+{
+	"name": "Aviso de 10 dias"
+}
+
+### Exclui um aviso
+DELETE {{baseUrl}}/api/warnings/65fcbf82ed7284a7ca5fe17b
