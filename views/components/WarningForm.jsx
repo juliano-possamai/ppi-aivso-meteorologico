@@ -72,7 +72,7 @@ function WarningForm() {
 			return response.data;
 		};
 
-		if (warningId.length) {
+		if (warningId) {
 			getWarningData(warningId).then((data) => {
 				for (const field in data) {
 					setValue(field, data[field]);

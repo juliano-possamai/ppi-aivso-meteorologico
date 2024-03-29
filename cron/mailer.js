@@ -1,6 +1,7 @@
 const nodemailer = require('nodemailer');
 
 class Mailer {
+
 	constructor() {
 		this.transporter = this.initTransporter();
 		this.mailOptions = this.initMailOptions();
@@ -45,6 +46,7 @@ class Mailer {
 			}
 		});
 	}
+
 }
 
 module.exports = Mailer;
