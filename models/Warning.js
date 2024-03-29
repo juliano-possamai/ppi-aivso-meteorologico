@@ -6,6 +6,10 @@ const WarningSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
+	email: {
+		type: String,
+		required: true,
+	},
 	maxDaysInAdvance: {
 		type: Number,
 		required: true,

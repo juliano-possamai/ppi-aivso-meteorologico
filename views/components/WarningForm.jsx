@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 const validationSchema = z.object({
 	name: z.string().trim().min(1, 'O nome é obrigatório'),
+	email: z.string().min(1, 'O email é obrigatório').email('Informe um email válido'),
 	maxDaysInAdvance: z.coerce
 		.number('O máximo de dias de antecedência é obrigatória')
 		.positive('O máximo de dias de antecedência deve ser maior que 0'),
@@ -28,34 +29,19 @@ function WarningForm() {
 	});
 	const { errors: validationErrors } = formState;
 
-	const translateApiErrorsToForm = (response) => {
-		//TODO nao vou mais precisar dessa bomba
-		let validationErrors = response.data.errors;
-		for (let field in validationErrors) {
-			let id = field.split('.')[1];
-			let errorMessage = '';
-
-			validationErrors[field].forEach((error) => {
-				errorMessage += error.split('|')[0];
-			});
-
-			setError(id, { type: 'manual', message: errorMessage });
-		}
-	};
-
 	const handleResponseError = (response) => {
 		if (response.status == 400 && response.data.errors) {
-			translateApiErrorsToForm(response);
+			//TODO tratamento de erro
 		}
 	};
 
 	const onSubmit = async (data) => {
 		try {
-			const response = isNaN(warningId)
+			const response = !warningId.length
 				? await WarningApi.create(data)
 				: await WarningApi.update(warningId, data);
 
-			if (response.status == 200) {
+			if (response.status == 201 || response.status == 204) {
 				toast.success('Aviso salvo com sucesso!');
 				return navigate('/warnings');
 			}
@@ -85,8 +71,8 @@ function WarningForm() {
 		<div className="mx-auto p-4">
 			<form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
 				<div>
-					<label htmlFor="name" className="block text-gray-700">Título:</label>
-					<input type="text" id="name" name="name" className="w-full p-2 border-b border-gray-300 outline-none" {...register('name')} />
+					<label htmlFor="name" className="block text-gray-700">Nome:</label>
+					<input type="text" id="name" name="name" placeholder="Informe o nome do aviso" className="w-full p-2 border-b border-gray-300 outline-none" {...register('name')} />
 					{validationErrors.name && (
 						<p className="text-red-500">
 							{validationErrors.name.message}
@@ -94,22 +80,33 @@ function WarningForm() {
 					)}
 				</div>
 				<div>
-					<label htmlFor="maxDaysInAdvance" className="block text-gray-700">Máximo de dias de antecedência:</label>
-					<input type="number" id="maxDaysInAdvance" name="maxDaysInAdvance" className="w-full p-2 border-b border-gray-300 outline-none" {...register('maxDaysInAdvance')} />
-					{validationErrors.maxDaysInAdvance && (
+					<label htmlFor="email" className="block text-gray-700">Email:</label>
+					<input type="text" id="email" name="email" placeholder="Informe o email que receberá a notificação" className="w-full p-2 border-b border-gray-300 outline-none" {...register('email')} />
+					{validationErrors.name && (
 						<p className="text-red-500">
-							{validationErrors.maxDaysInAdvance.message}
+							{validationErrors.email.message}
 						</p>
 					)}
 				</div>
-				<div>
-					<label htmlFor="minimunProbability" className="block text-gray-700">Probabilidade mínima do evento ocorrer:</label>
-					<input type="number" id="minimunProbability" name="minimunProbability" className="w-full p-2 border-b border-gray-300 outline-none" {...register('minimunProbability')} />
-					{validationErrors.minimunProbability && (
-						<p className="text-red-500">
-							{validationErrors.minimunProbability.message}
-						</p>
-					)}
+				<div className="flex">
+					<div className="w-1/2">
+						<label htmlFor="maxDaysInAdvance" className="block text-gray-700">Máximo de dias de antecedência:</label>
+						<input type="number" id="maxDaysInAdvance" name="maxDaysInAdvance" placeholder="Informe o máximo de dias de antecedência" className="w-full p-2 border-b border-gray-300 outline-none" {...register('maxDaysInAdvance')} />
+						{validationErrors.maxDaysInAdvance && (
+							<p className="text-red-500">
+								{validationErrors.maxDaysInAdvance.message}
+							</p>
+						)}
+					</div>
+					<div className="w-1/2">
+						<label htmlFor="minimunProbability" className="block text-gray-700">Probabilidade mínima do evento ocorrer:</label>
+						<input type="number" id="minimunProbability" name="minimunProbability" placeholder="Informe a probabilidade mínima do evento ocorrer" className="w-full p-2 border-b border-gray-300 outline-none" {...register('minimunProbability')} />
+						{validationErrors.minimunProbability && (
+							<p className="text-red-500">
+								{validationErrors.minimunProbability.message}
+							</p>
+						)}
+					</div>
 				</div>
 				<div className="flex space-x-4">
 					<button type="button" onClick={() => navigate('/warnings')} className="w-1/2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>

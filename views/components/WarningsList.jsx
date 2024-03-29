@@ -21,7 +21,8 @@ function WarningList() {
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const response = await WarningApi.delete(warningId);
-				if (response.status == 200) {
+				if (response.status == 204) {
+					data.filter(warning => warning._id !== warningId);
 					return toast.success('Aviso removido com sucesso!');
 				}
 			}
