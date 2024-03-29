@@ -1,7 +1,12 @@
 const cron = require('node-cron');
+const NotifierJob = require('./notifierJob');
+const WeatherApi = require('./climaTempoWeatherApi');
+const Mailer = require('./mailer');
 
-const task = cron.schedule('*/10 * * * * *', () => {
-	console.log('Tarefa executada a cada 10 segundos');
+let everyDayAt9Am = '0 9 * * *';
+const cronManager = cron.schedule(everyDayAt9Am, () => {
+	const notifierJob = new NotifierJob(new WeatherApi(), new Mailer());
+	notifierJob.run();
 });
 
-module.exports = task;
+module.exports = cronManager;

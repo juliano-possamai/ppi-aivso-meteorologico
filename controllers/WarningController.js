@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Warning = mongoose.model("Warning");
+const mongoose = require('mongoose');
+const Warning = mongoose.model('Warning');
 
 module.exports = {
 	async getAll(req, res) {
@@ -8,6 +8,7 @@ module.exports = {
 		return res.json(warnings);
 	},
 
+	//TODO replicar validações da interface na API + limite de avisos por usuário
 	async save(req, res) {
 		const warning = await Warning.create(req.body);
 		return res.status(201).json(warning);

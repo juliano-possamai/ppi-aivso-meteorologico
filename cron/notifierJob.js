@@ -1,10 +1,7 @@
 const requireDir = require('require-dir');
 requireDir('../models');
 
-//TODO iniciar requisição de um lugar centralizado
 const mongoose = require('mongoose');
-const uri = 'mongodb://127.0.0.1:27017';
-mongoose.connect(uri);
 const Warning = mongoose.model('Warning');
 
 class NotifierJob {

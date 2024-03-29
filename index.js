@@ -1,7 +1,8 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const requireDir = require("require-dir");
-const cors = require("cors");
+const express = require('express');
+const mongoose = require('mongoose');
+const requireDir = require('require-dir');
+const cors = require('cors');
+const cronManager = require('./cron/cronManager');
 
 const app = express();
 
@@ -19,3 +20,5 @@ const apiPort = 3000;
 app.listen(apiPort, () => {
 	console.log(`Listening on port ${apiPort}`);
 });
+
+cronManager.start();
