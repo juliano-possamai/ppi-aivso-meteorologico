@@ -10,9 +10,10 @@ import { toast } from 'react-toastify';
 const validationSchema = z.object({
 	name: z.string().trim().min(1, 'O nome é obrigatório'),
 	email: z.string().min(1, 'O email é obrigatório').email('Informe um email válido'),
-	maxDaysInAdvance: z.coerce
-		.number('O máximo de dias de antecedência é obrigatória')
-		.positive('O máximo de dias de antecedência deve ser maior que 0'),
+	maxDaysUntilEvent: z.coerce
+		.number('O máximo de dias até o evento é obrigatório')
+		.min(1, 'O máximo de dias até o evento deve ser maior que 1')
+		.max(14, 'O número máximo de dias até o evento é 14'),
 	minimunProbability: z.coerce
 		.number('O probabilidade mínima do evento ocorrer é obrigatória')
 		.positive('O probabilidade mínima do evento ocorrer deve ser maior que 0'),
@@ -90,11 +91,11 @@ function WarningForm() {
 				</div>
 				<div className="flex">
 					<div className="w-1/2">
-						<label htmlFor="maxDaysInAdvance" className="block text-gray-700">Máximo de dias de antecedência:</label>
-						<input type="number" id="maxDaysInAdvance" name="maxDaysInAdvance" placeholder="Informe o máximo de dias de antecedência" className="w-full p-2 border-b border-gray-300 outline-none" {...register('maxDaysInAdvance')} />
-						{validationErrors.maxDaysInAdvance && (
+						<label htmlFor="maxDaysUntilEvent" className="block text-gray-700">Máximo de dias de antecedência:</label>
+						<input type="number" id="maxDaysUntilEvent" name="maxDaysUntilEvent" placeholder="Informe o máximo de dias de antecedência" className="w-full p-2 border-b border-gray-300 outline-none" {...register('maxDaysUntilEvent')} />
+						{validationErrors.maxDaysUntilEvent && (
 							<p className="text-red-500">
-								{validationErrors.maxDaysInAdvance.message}
+								{validationErrors.maxDaysUntilEvent.message}
 							</p>
 						)}
 					</div>

@@ -10,7 +10,7 @@ const WarningSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 	},
-	maxDaysInAdvance: {
+	maxDaysUntilEvent: {
 		type: Number,
 		required: true,
 		min: 1,

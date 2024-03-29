@@ -7,8 +7,8 @@ POST {{baseUrl}}/api/warnings
 Content-Type: application/json
 
 {
-	"name": "Aviso de 10 dias",
-	"maxDaysInAdvance": 10,
+	"name": "Aviso 1",
+	"maxDaysUntilEvent": 10,
 	"minimunProbability": 50
 }
 
@@ -20,7 +20,7 @@ PUT {{baseUrl}}/api/warnings/654c18e165a5d73d669f7fce
 Content-Type: application/json
 
 {
-	"name": "Aviso de 10 dias"
+	"name": "Aviso 1 - alterado"
 }
 
 ### Exclui um aviso

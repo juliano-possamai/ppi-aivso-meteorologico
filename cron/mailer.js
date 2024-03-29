@@ -30,10 +30,10 @@ class Mailer {
 		this.mailOptions.to = to;
 		this.mailOptions.subject = subject;
 		this.mailOptions.text = text;
+		return this;
 	}
 
 	send() {
-		console.log(this.mailOptions);
 		if (!this.mailOptions.to || !this.mailOptions.subject || !this.mailOptions.text) {
 			throw('Missing email parameters');
 		}
@@ -41,8 +41,6 @@ class Mailer {
 		this.transporter.sendMail(this.mailOptions, (error, info) => {
 			if (error) {
 				console.error('Error sending email:', error);
-			} else {
-				console.log('Email sent successfully:', info.response);
 			}
 		});
 	}

@@ -1,5 +1,7 @@
-cron = require('./cronManager.js');
+// cron = require('./cronManager.js');
+const NotifierJob = require('./notifierJob.js');
 const Mailer = require('./mailer.js');
+const WeatherApi = require('./climaTempoWeatherApi.js');
 
 // const mailer = new Mailer();
 // mailer.setMailOptions(
@@ -10,3 +12,6 @@ const Mailer = require('./mailer.js');
 
 // mailer.send();
 // cron.start();
+
+const notifierJob = new NotifierJob(new WeatherApi(), new Mailer());
+notifierJob.run();
