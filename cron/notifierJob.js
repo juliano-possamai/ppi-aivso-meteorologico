@@ -46,7 +46,7 @@ class NotifierJob {
 	}
 
 	getFormattedMessage(notifications) {
-		notifications.reduce((acc, notification) => {
+		return notifications.reduce((acc, notification) => {
 			let formattedDate = new Date(notification.date).toLocaleDateString('pt-BR', {
 				weekday: 'long',
 				day: 'numeric',

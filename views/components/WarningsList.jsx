@@ -1,14 +1,36 @@
 import { Link } from 'react-router-dom';
-import { useFetchWarningsReducer } from '../hooks/useFetchWarningsReducer';
 import Swal from 'sweetalert2';
 import WarningApi from '../api/WeatherApi';
 import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { useEffect, useState } from 'react';
 
 function WarningList() {
-	const { state } = useFetchWarningsReducer();
-	const { data, loading, error } = state;
+	const [data, setData] = useState([]);
+	const [error, setError] = useState();
+	const [loading, setLoading] = useState(false);
+
+	useEffect(() => {
+		const listWarnings = async() => {
+			try {
+				const response = await WarningApi.getAll();
+
+				if (response.status == 200) {
+					setData(response.data.docs);
+					return;
+				}
+				
+				setError('Lamento, ocorreu um erro!')
+			} catch(err) {
+				setError('Lamento, ocorreu um erro!')
+			} finally {
+				setLoading(false)
+			}
+		}
+
+		listWarnings();
+	}, []);
 
 	const onDeleteWarning = (warningId) => {
 		Swal.fire({
@@ -22,11 +44,11 @@ function WarningList() {
 				cancelButton: 'focus:!shadow-none',
 				confirmButton: '!bg-red-600 focus:!shadow-none'
 			}
-		}).then(async (result) => {
+		}).then(async(result) => {
 			if (result.isConfirmed) {
 				const response = await WarningApi.delete(warningId);
 				if (response.status == 204) {
-					data.filter(warning => warning._id !== warningId);
+					setData(data.filter(warning => warning._id !== warningId));
 					return toast.success('Aviso removido com sucesso!');
 				}
 			}

@@ -41,7 +41,7 @@ class WeatherApi{
 
 	async fetch() {
 		let response = await axios.get(this.getUrl(), { params: { token: this.apiKey } });
-		return response.data;
+		return response.data.data;
 	}
 
 }
