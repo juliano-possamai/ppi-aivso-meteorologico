@@ -23,7 +23,7 @@ function WarningForm() {
 	const navigate = useNavigate();
 
 	const params = useParams();
-	const warningId = params.id;
+	const warningId = params.id ?? '';
 
 	const { register, handleSubmit, formState, setValue } = useForm({
 		resolver: zodResolver(validationSchema),
@@ -49,6 +49,7 @@ function WarningForm() {
 
 			handleResponseError(response);
 		} catch (exception) {
+			//TODO tratamento de erro
 			handleResponseError(exception.response);
 		}
 	};
