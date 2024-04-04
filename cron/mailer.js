@@ -34,7 +34,7 @@ class Mailer {
 	}
 
 	send() {
-		if (!this.mailOptions.to || !this.mailOptions.subject || !this.mailOptions.text) {
+		if (!(this.mailOptions.to && this.mailOptions.subject && this.mailOptions.text)) {
 			throw('Missing email parameters');
 		}
 
