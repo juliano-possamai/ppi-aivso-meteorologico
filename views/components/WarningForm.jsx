@@ -25,7 +25,7 @@ function WarningForm() {
 	const params = useParams();
 	const warningId = params.id;
 
-	const { register, handleSubmit, formState, setValue, setError } = useForm({
+	const { register, handleSubmit, formState, setValue } = useForm({
 		resolver: zodResolver(validationSchema),
 	});
 	const { errors: validationErrors } = formState;
@@ -110,8 +110,8 @@ function WarningForm() {
 					</div>
 				</div>
 				<div className="flex space-x-4">
-					<button type="button" onClick={() => navigate('/warnings')} className="w-1/2 bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">Cancelar</button>
-					<button type="submit" className="w-1/2 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">Enviar</button>
+					<button type="button" onClick={() => navigate('/warnings')} className="w-1/2 text-green-600 py-2 px-4 rounded-md border border-green-600 hover:bg-green-100 transition hover:shadow-md">Cancelar</button>
+					<button type="submit" className="w-1/2 bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition hover:shadow-md">Enviar</button>
 				</div>
 			</form>
 		</div>

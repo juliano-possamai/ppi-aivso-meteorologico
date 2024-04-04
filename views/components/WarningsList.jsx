@@ -18,6 +18,10 @@ function WarningList() {
 			confirmButtonText: 'Sim',
 			cancelButtonText: 'Não',
 			reverseButtons: true,
+			customClass: {
+				cancelButton: 'focus:!shadow-none',
+				confirmButton: '!bg-red-600 focus:!shadow-none'
+			}
 		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const response = await WarningApi.delete(warningId);
@@ -33,7 +37,7 @@ function WarningList() {
 		<div>
 			<div className="flex justify-end">
 				<Link to="/warnings/create">
-					<button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 border border-green-700 rounded">
+					<button className="bg-green-500 hover:bg-green-600 text-white p-2 px-4 rounded transition hover:shadow-md">
 						Adicionar Aviso
 					</button>
 				</Link>
@@ -70,11 +74,11 @@ function WarningList() {
 								</td>
 								<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
 									<Link to={`/warnings/update/${warning._id}`}>
-										<button className="text-xs ml-1 text-green-700 font-semibold py-1 px-2 border border-gray-200 hover:border-green-500 rounded hover:transition-all">
+										<button className="text-xs text-green-700 font-semibold p-1 px-2 border border-gray-200 hover:border-green-400 rounded transition">
 											Editar
 										</button>
 									</Link>
-									<button onClick={() => onDeleteWarning(warning._id)} className="text-xs ml-1 text-red-700 font-semibold-1 px-2 border border-gray-200 hover:border-red-500 rounded hover:transition-all">
+									<button onClick={() => onDeleteWarning(warning._id)} className="text-xs ml-1 text-red-700 font-semibold-1 p-1 px-2 border border-gray-200 hover:border-red-400 rounded transition">
 										<FontAwesomeIcon icon={faTrash} />
 									</button>
 								</td>
