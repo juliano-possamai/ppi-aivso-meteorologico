@@ -1,9 +1,13 @@
 const mongoose = require('mongoose');
 const Warning = mongoose.model('Warning');
 
-const validateData = (data) => {
-	console.log("🚀 ~ validateData ~ data:", data)
+const validateData = async(id, data) => {
 	let errors = [];
+
+	if (!id.length && await Warning.countDocuments() >= 3) {
+		errors.push({ field: 'generic', message: 'Você atingiu o número máximo de 3 avisos!' });
+		return errors;
+	}
 
 	if (!data.name?.trim()) {
 		errors.push({ field: 'name', message: 'O nome é obrigatório' });
@@ -26,8 +30,10 @@ const validateData = (data) => {
 
 	if (!data.minimunProbability) {
 		errors.push({ field: 'minimunProbability', message: 'O probabilidade mínima do evento ocorrer é obrigatória' });
-	} else if (data.minimunProbability <= 0) {
-		errors.push({ field: 'minimunProbability', message: 'O probabilidade mínima do evento ocorrer deve ser maior que 0' });
+	} else if (data.minimunProbability < 5) {
+		errors.push({ field: 'minimunProbability', message: 'O probabilidade mínima do evento ocorrer deve ser maior que 5' });
+	} else if (data.minimunProbability > 99) {
+		errors.push({ field: 'minimunProbability', message: 'O probabilidade mínima do evento ocorrer deve ser menor que 100' });
 	}
 
 	return errors;
@@ -35,13 +41,12 @@ const validateData = (data) => {
 
 module.exports = {
 	async getAll(req, res) {
-		const { page = 1 } = req.query;
-		const warnings = await Warning.paginate({}, { page, limit: 10 });
+		const warnings = await Warning.find();
 		return res.json(warnings);
 	},
 
 	async save(req, res) {
-		const errors = validateData(req.body);
+		const errors = await validateData('', req.body);
 		if (errors.length) {
 			return res.status(400).json({ errors: errors });
 		}
@@ -56,7 +61,7 @@ module.exports = {
 	},
 
 	async update(req, res) {
-		const errors = validateData(req.body);
+		const errors = await validateData(req.params.id, req.body);
 		if (errors.length) {
 			return res.status(400).json({ errors: errors });
 		}

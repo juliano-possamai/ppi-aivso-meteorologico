@@ -16,7 +16,8 @@ const validationSchema = z.object({
 		.max(14, 'O número máximo de dias até o evento é 14'),
 	minimunProbability: z.coerce
 		.number('O probabilidade mínima do evento ocorrer é obrigatória')
-		.positive('O probabilidade mínima do evento ocorrer deve ser maior que 0'),
+		.min(5, 'O probabilidade mínima do evento ocorrer deve ser maior que 5')
+		.max(99, 'O probabilidade mínima do evento ocorrer deve ser menor que 100'),
 });
 
 function WarningForm() {
@@ -32,6 +33,10 @@ function WarningForm() {
 
 	const handleResponseError = (response) => {
 		if (response.status == 400 && response.data.errors) {
+			if (response.data.errors[0].field == 'generic') {
+				return toast.error(response.data.errors[0].message);
+			}
+
 			response.data.errors.forEach((error) => {
 				setError(error.field, { message: error.message })
 			})

@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ### Exclui um aviso
-DELETE {{baseUrl}}/api/warnings/65fcbf82ed7284a7ca5fe17b
+DELETE {{baseUrl}}/api/warnings/6612a92ca1b993bf265f8b8e

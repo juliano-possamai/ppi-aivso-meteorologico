@@ -17,10 +17,10 @@ function WarningList() {
 				const response = await WarningApi.getAll();
 
 				if (response.status == 200) {
-					setData(response.data.docs);
+					setData(response.data);
 					return;
 				}
-				
+
 				setError('Lamento, ocorreu um erro!')
 			} catch(err) {
 				setError('Lamento, ocorreu um erro!')
