@@ -25,14 +25,16 @@ function WarningForm() {
 	const params = useParams();
 	const warningId = params.id ?? '';
 
-	const { register, handleSubmit, formState, setValue } = useForm({
+	const { register, handleSubmit, formState, setValue, setError } = useForm({
 		resolver: zodResolver(validationSchema),
 	});
 	const { errors: validationErrors } = formState;
 
 	const handleResponseError = (response) => {
 		if (response.status == 400 && response.data.errors) {
-			//TODO tratamento de erro
+			response.data.errors.forEach((error) => {
+				setError(error.field, { message: error.message })
+			})
 		}
 	};
 
@@ -46,10 +48,7 @@ function WarningForm() {
 				toast.success('Aviso salvo com sucesso!');
 				return navigate('/warnings');
 			}
-
-			handleResponseError(response);
 		} catch (exception) {
-			//TODO tratamento de erro
 			handleResponseError(exception.response);
 		}
 	};
