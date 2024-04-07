@@ -26,7 +26,7 @@ class NotifierJob {
 				if (this.shouldNotify(warning, weather)) {
 					pendingEmails[warning.email] = [
 						...pendingEmails[warning.email] || [],
-						{ date: weather.date, probability: weather.rainProbability, message: weather.message }
+						{ warningName: warning.name, date: weather.date, probability: weather.rainProbability, message: weather.message }
 					]
 				}
 			}
@@ -55,7 +55,7 @@ class NotifierJob {
 			});
 
 			formattedDate = formattedDate.charAt(0).toUpperCase() + formattedDate.slice(1);
-			return acc + `${formattedDate}, Probabilidade de chuva de ${notification.probability}%. ${notification.message}\n`;
+			return acc + `${formattedDate}, Alerta para o aviso ${notification.warningName} Probabilidade de chuva de ${notification.probability}%. ${notification.message}\n`;
 		}, '');
 	}
 

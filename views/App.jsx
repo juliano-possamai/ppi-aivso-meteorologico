@@ -14,7 +14,7 @@ function App() {
 			<div className="flex flex-col justify-center items-center">
 				<nav className="bg-indigo-800 p-4 w-full shadow-lg">
 					<div className="container mx-auto flex justify-between items-center">
-						<span className="text-white text-2xl font-bold">Avisos meteorológicos</span>
+						<span className="text-white text-2xl font-bold">Avisos meteorológicos de chuva</span>
 						<FontAwesomeIcon className="Header-icon text-white" icon={faCloudShowersHeavy} />
 					</div>
 				</nav>
