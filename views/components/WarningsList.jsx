@@ -12,7 +12,7 @@ function WarningList() {
 	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		const listWarnings = async() => {
+		const listWarnings = async () => {
 			try {
 				const response = await WarningApi.getAll();
 
@@ -22,7 +22,7 @@ function WarningList() {
 				}
 
 				setError('Lamento, ocorreu um erro!')
-			} catch(err) {
+			} catch (err) {
 				setError('Lamento, ocorreu um erro!')
 			} finally {
 				setLoading(false)
@@ -44,7 +44,7 @@ function WarningList() {
 				cancelButton: 'focus:!shadow-none',
 				confirmButton: '!bg-red-600 focus:!shadow-none'
 			}
-		}).then(async(result) => {
+		}).then(async (result) => {
 			if (result.isConfirmed) {
 				const response = await WarningApi.delete(warningId);
 				if (response.status == 204) {
@@ -75,6 +75,10 @@ function WarningList() {
 			) : error ? (
 				<div className="bg-red-100 border border-red-400 text-red-700 px-4 py-2 rounded-md mt-5">
 					Ocorreu um erro ao carregar a lista de avisos.
+				</div>
+			) : !data.length ? (
+				<div className="bg-blue-100 border border-blue-400 text-blue-700 px-4 py-2 rounded-md mt-5">
+					Nenhum aviso cadastrado.
 				</div>
 			) : (
 				<table className="min-w-full mt-10">

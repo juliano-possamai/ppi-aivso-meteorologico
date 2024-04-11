@@ -9,7 +9,7 @@ class WeatherApi{
 
 	constructor() {
 		this.apiUrl = 'http://apiadvisor.climatempo.com.br/api/v1'
-		this.apiKey = 'bf2ac10572100ad61c634c6c8b97c440'; //TOOD poderia estar em um env
+		this.apiKey = 'bf2ac10572100ad61c634c6c8b97c440';
 		this.parameters = {
 			cityId: this.getCityId()
 		};

@@ -4,11 +4,10 @@ const WeatherApi = require('./climaTempoWeatherApi');
 const Mailer = require('./mailer');
 
 let everyDayAt9Am = '0 9 * * *';
-let every40seconds = ' */40 * * * * *'
-const cronManager = cron.schedule(every40seconds, () => {
-	// console.log('Cron')
-	// const notifierJob = new NotifierJob(new WeatherApi(), new Mailer());
-	// notifierJob.run();
+let every30seconds = '*/30 * * * * *'
+const cronManager = cron.schedule(everyDayAt9Am, () => {
+	const notifierJob = new NotifierJob(new WeatherApi(), new Mailer());
+	notifierJob.run();
 });
 
 module.exports = cronManager;
