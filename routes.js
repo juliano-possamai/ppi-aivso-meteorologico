@@ -3,7 +3,6 @@ const routes = express.Router();
 
 const  WarningController = require('./controllers/WarningController');
 
-//TODO alterar para grupo de rotas
 routes.get('/warnings', WarningController.getAll);
 routes.get('/warnings/:id', WarningController.getById);
 routes.post('/warnings', WarningController.save);
