@@ -14,7 +14,7 @@ mongoose.connect(uri);
 
 requireDir('./models');
 
-app.use('/api', require('./routes'));
+app.use('/api', require('./routes.js'));
 
 const apiPort = 3000;
 app.listen(apiPort, () => {

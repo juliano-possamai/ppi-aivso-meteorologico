@@ -29,6 +29,7 @@ function WarningForm() {
 	const { register, handleSubmit, formState, setValue, setError } = useForm({
 		resolver: zodResolver(validationSchema),
 	});
+
 	const { errors: validationErrors } = formState;
 
 	const handleResponseError = (response) => {

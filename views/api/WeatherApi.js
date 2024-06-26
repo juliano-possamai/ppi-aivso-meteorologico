@@ -1,27 +1,24 @@
-import axios from "axios";
+import api from './api';
 
 export default class WarningApi {
-
-	static baseUrl = 'http://localhost:3000/api';
-
 	static async getAll() {
-		return await axios.get(`${WarningApi.baseUrl}/warnings`);
+		return await api.get('/warnings');
 	}
 
 	static async getById(id) {
-		return await axios.get(`${WarningApi.baseUrl}/warnings/${id}`);
+		return await api.get(`/warnings/${id}`);
 	}
 
 	static async create(data) {
-		return await axios.post(`${WarningApi.baseUrl}/warnings`, data);
+		return await api.post('/warnings', data);
 	}
 
 	static async update(id, data) {
-		return await axios.put(`${WarningApi.baseUrl}/warnings/${id}`, data);
+		return await api.put(`/warnings/${id}`, data);
 	}
 
 	static async delete(id) {
-		return await axios.delete(`${WarningApi.baseUrl}/warnings/${id}`);
+		return await api.delete(`/warnings/${id}`);
 	}
 
 }
