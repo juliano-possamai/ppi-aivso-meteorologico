@@ -17,6 +17,6 @@ module.exports = {
 			role: user.role
 		}, process.env.ACCESS_TOKEN_SECRET);
 
-		return res.status(200).json({ user: username, accessToken: accessToken });
+		return res.status(200).json({ user: { username: user.username, role: user.role }, accessToken: accessToken });
 	}
 };

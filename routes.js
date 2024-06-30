@@ -1,33 +1,17 @@
-const jwt = require('jsonwebtoken');
-
 const express = require('express');
 const routes = express.Router();
 
 const WarningController = require('./controllers/WarningController');
 const LoginController = require('./controllers/LoginController');
 
-const authenticateJWT = (req, res, next) => {
-	const authHeader = req.headers.authorization;
-	if (!authHeader) {
-		return res.sendStatus(401);
-	}
+const AuthenticationMiddleware = require('./middlewares/AuthenticationMiddleware.js');
+const AdminAccessMiddleware = require('./middlewares/AdminAccessMiddleware.js');
 
-	const token = authHeader.split(' ')[1];
-	jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (error, user) => {
-		if (error) {
-			return res.sendStatus(403);
-		}
-
-		req.user = user;
-		return next();
-	});
-};
-
-routes.get('/warnings', authenticateJWT, WarningController.getAll);
-routes.get('/warnings/:id', authenticateJWT, WarningController.getById);
-routes.post('/warnings', authenticateJWT, WarningController.save);
-routes.put('/warnings/:id', authenticateJWT, WarningController.update);
-routes.delete('/warnings/:id', authenticateJWT, WarningController.delete);
+routes.get('/warnings', AuthenticationMiddleware, WarningController.getAll);
+routes.get('/warnings/:id', AuthenticationMiddleware, WarningController.getById);
+routes.post('/warnings', AuthenticationMiddleware, WarningController.save);
+routes.put('/warnings/:id', AuthenticationMiddleware, WarningController.update);
+routes.delete('/warnings/:id', AuthenticationMiddleware, AdminAccessMiddleware, WarningController.delete);
 
 routes.post('/login', LoginController.login);
 

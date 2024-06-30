@@ -4,7 +4,10 @@ import api from '../api/api.js';
 
 const AuthContext = createContext({});
 export const AuthProvider = ({ children }) => {
-	const [user, setUser] = useState(null);
+	const [user, setUser] = useState({
+		'username': '',
+		'role': ''
+	});
 
 	const login = async(username, password) => {
 		try {

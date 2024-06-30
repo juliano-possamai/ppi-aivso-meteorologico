@@ -12,8 +12,6 @@ app.use(cors());
 app.use('/api', require('./routes.js'));
 
 const apiPort = 3000;
-app.listen(apiPort, () => {
-	console.log(`Listening on port ${apiPort}`);
-});
+app.listen(apiPort, () => console.log(`Listening on port ${apiPort}`));
 
 cronManager.start();

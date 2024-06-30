@@ -5,8 +5,11 @@ import { toast } from 'react-toastify';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useState } from 'react';
+import { useAuth } from '../contexts/auth';
 
 function WarningList() {
+	const auth = useAuth();
+
 	const [data, setData] = useState([]);
 	const [error, setError] = useState();
 	const [loading, setLoading] = useState(false);
@@ -104,9 +107,11 @@ function WarningList() {
 											Editar
 										</button>
 									</Link>
-									<button onClick={() => onDeleteWarning(warning.id)} className="text-xs ml-1 text-red-700 font-semibold-1 p-1 px-2 border border-gray-200 hover:border-red-400 rounded transition">
-										<FontAwesomeIcon icon={faTrash} />
-									</button>
+									{auth.user.role == 'admin' &&
+										<button onClick={() => onDeleteWarning(warning.id)} className="text-xs ml-1 text-red-700 font-semibold-1 p-1 px-2 border border-gray-200 hover:border-red-400 rounded transition">
+											<FontAwesomeIcon icon={faTrash} />
+										</button>
+									}
 								</td>
 							</tr>
 						))}
