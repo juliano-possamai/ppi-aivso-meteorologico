@@ -1,8 +1,4 @@
-const requireDir = require('require-dir');
-requireDir('../models');
-
-const mongoose = require('mongoose');
-const Warning = mongoose.model('Warning');
+const { Warning } = require('../models');
 
 class NotifierJob {
 
@@ -12,7 +8,7 @@ class NotifierJob {
 	}
 
 	async run() {
-		let warnings = await Warning.find();
+		let warnings = await Warning.findAll();
 		if (!warnings.length) {
 			return;
 		}

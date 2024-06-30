@@ -48,7 +48,7 @@ function WarningList() {
 			if (result.isConfirmed) {
 				const response = await WarningApi.delete(warningId);
 				if (response.status == 204) {
-					setData(data.filter(warning => warning._id !== warningId));
+					setData(data.filter(warning => warning.id !== warningId));
 					return toast.success('Aviso removido com sucesso!');
 				}
 			}
@@ -94,17 +94,17 @@ function WarningList() {
 					</thead>
 					<tbody>
 						{data.map((warning) => (
-							<tr key={warning._id}>
+							<tr key={warning.id}>
 								<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
 									{warning.name}
 								</td>
 								<td className="px-6 py-4 whitespace-no-wrap border-b border-gray-300">
-									<Link to={`/warnings/update/${warning._id}`}>
+									<Link to={`/warnings/update/${warning.id}`}>
 										<button className="text-xs text-green-700 font-semibold p-1 px-2 border border-gray-200 hover:border-green-400 rounded transition">
 											Editar
 										</button>
 									</Link>
-									<button onClick={() => onDeleteWarning(warning._id)} className="text-xs ml-1 text-red-700 font-semibold-1 p-1 px-2 border border-gray-200 hover:border-red-400 rounded transition">
+									<button onClick={() => onDeleteWarning(warning.id)} className="text-xs ml-1 text-red-700 font-semibold-1 p-1 px-2 border border-gray-200 hover:border-red-400 rounded transition">
 										<FontAwesomeIcon icon={faTrash} />
 									</button>
 								</td>

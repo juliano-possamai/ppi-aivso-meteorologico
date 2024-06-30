@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
-const Warning = mongoose.model('Warning');
+const { Warning } = require('../models');
 
 const validateData = async(id, data) => {
 	let errors = [];
 
-	if (!id.length && await Warning.countDocuments() >= 3) {
+	if (!id.length && await Warning.count() >= 3) {
 		errors.push({ field: 'generic', message: 'Você atingiu o número máximo de 3 avisos!' });
 		return errors;
 	}
@@ -41,7 +40,7 @@ const validateData = async(id, data) => {
 
 module.exports = {
 	async getAll(req, res) {
-		const warnings = await Warning.find();
+		const warnings = await Warning.findAll();
 		return res.json(warnings);
 	},
 
@@ -56,7 +55,7 @@ module.exports = {
 	},
 
 	async getById(req, res) {
-		const warning = await Warning.findById(req.params.id);
+		const warning = await Warning.findByPk(req.params.id);
 		return res.json(warning);
 	},
 
@@ -66,12 +65,12 @@ module.exports = {
 			return res.status(400).json({ errors: errors });
 		}
 
-		await Warning.findByIdAndUpdate(req.params.id, req.body);
+		await Warning.update(req.body, { where: { id: req.params.id } });
 		return res.status(204).send();
 	},
 
 	async delete(req, res) {
-		await Warning.findByIdAndDelete(req.params.id);
+		await Warning.destroy({ where: { id: req.params.id } });
 		return res.status(204).send();
 	},
 
