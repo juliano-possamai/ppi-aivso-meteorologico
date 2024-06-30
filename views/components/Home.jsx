@@ -27,10 +27,7 @@ function Home() {
 					? <div className="flex justify-center items-center">
 						<h1 className="text-2xl font-bold">Faça login para acessar os avisos meteorológicos</h1>
 					</div>
-
-					:
-
-					<BrowserRouter>
+					: <BrowserRouter>
 						<Routes>
 							<Route index element={<Navigate to="/warnings" replace />} />
 							<Route path="/warnings" element={<WarningList />} />

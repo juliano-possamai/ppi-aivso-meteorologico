@@ -20,28 +20,30 @@ function LoginForm() {
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<div>
-				<label>Usuário: </label>
+		<form onSubmit={handleSubmit} className="flex space-x-4 items-end">
+			<div className="flex flex-col items-center">
+				<label className="mb-2 text-white">Usuário:</label>
 				<input
 					type="text"
 					name="username"
 					value={data.username}
 					onChange={handleChange}
 					required
+					className="border rounded px-2 py-1"
 				/>
 			</div>
-			<div>
-				<label>Senha: </label>
+			<div className="flex flex-col items-center">
+				<label className="mb-2 text-white">Senha:</label>
 				<input
 					type="password"
 					name="password"
 					value={data.password}
 					onChange={handleChange}
 					required
+					className="border rounded px-2 py-1"
 				/>
 			</div>
-			<button type="submit">Login</button>
+			<button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">Login</button>
 		</form>
 	);
 }
