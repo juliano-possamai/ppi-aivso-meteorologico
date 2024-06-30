@@ -1,3 +1,4 @@
+import { toast } from 'react-toastify';
 import { useState, createContext, useContext, useEffect } from 'react';
 import api from '../api/api.js';
 
@@ -18,7 +19,7 @@ export const AuthProvider = ({ children }) => {
 			localStorage.setItem('@App:user', JSON.stringify(response.data.user));
 			localStorage.setItem('@App:accessToken', response.data.accessToken);
 		} catch(error) {
-			console.error(error);
+			toast.error('Usuário ou senha inválidos');
 		}
 
 	}
