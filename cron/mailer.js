@@ -12,7 +12,7 @@ class Mailer {
 			service: 'gmail',
 			auth: {
 				user: 'trabs.juliano@gmail.com',
-				pass: 'jmsh llwh mgyd tnzr'
+				pass: 'htpz njgq iuye knqd'
 			}
 		})
 	}
