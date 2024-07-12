@@ -8,7 +8,9 @@ module.exports = {
 				name: 'Aviso teste',
 				email: 'teste@email.com',
 				maxDaysUntilEvent: 10,
-				minimunProbability: 60
+				minimunProbability: 60,
+				createdAt: new Date(),
+				updatedAt: new Date()
 			}
 		]);
 	},
